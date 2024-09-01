@@ -1,0 +1,13 @@
+
+import requests         # Importing requests
+from bs4 import BeautifulSoup          
+ 
+url = 'http://www.nytimes.com'      # make the request to the New York Times homepage. according to the documentation you supply a URL and make a GET request.
+r = requests.get(url)           
+soup = BeautifulSoup(r.text)
+ 
+for story_heading in soup.find_all(class_="indicate-hover css-91bpc3"): 
+    if story_heading.a: 
+        print(story_heading.a.text.replace("\n", " ").strip())
+    else: 
+        print(story_heading.contents[0].strip())
